@@ -5,6 +5,19 @@ public class LZWCompression {
     private static final char[] ALPHABET = {'a', 'b', 'c', 'd'};
 
     public static void main(String[] args) {
+        // ======= 1) Smoke tests on small inputs =======
+        String[] smokeTests = {"a", "aa", "aba", "abab", "abcabc", "aaaabbbb", "abababa"};
+        System.out.println("=== Smoke Tests ===");
+        for (String s : smokeTests) {
+            List<Integer> codes = compress(s);
+            String roundTrip = decompress(codes);
+            System.out.printf("Input: \"%s\"  Codes: %s  Round-trip: %s%n",
+                    s,
+                    codes,
+                    roundTrip.equals(s) ? "OK" : "FAIL");
+        }
+        System.out.println("====================\n");
+        
         // Define probability distributions for the two cases
         double[] probsCase1 = {0.5, 0.2, 0.15, 0.15};
         double[] probsCase2 = {0.3, 0.3, 0.25, 0.15};
